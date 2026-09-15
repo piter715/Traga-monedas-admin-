@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Magaly - Tragamonedas - magaly-gules</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&family=Orbitron:wght@900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,sans-serif}
+body{background:#0b0618;color:#fff;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;position:relative;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 20% 20%,#5a1f9e 0%,#1e0a3a 40%,#080314 80%)}
+.wrap{width:100%;max-width:440px;position:relative;z-index:2}
+h1{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;background:linear-gradient(#fff,#ffcc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;filter:drop-shadow(0 0 10px rgba(255,204,0,.5))}
+.card{background:linear-gradient(180deg,#1e1540,#12102a);border:1px solid rgba(255,204,0,.2);border-radius:20px;padding:16px;margin-top:16px;box-shadow:0 0 24px rgba(255,0,200,.12)}
+label{font-size:11px;font-weight:900;letter-spacing:.12em;color:#ffcc00;margin-top:12px;display:block}
+input{width:100%;height:48px;border-radius:12px;border:1px solid #2a2a4a;background:#0f0a22;color:#fff;padding:0 14px;margin-top:6px;font-size:14px;font-weight:800}
+.btn{width:100%;height:54px;border-radius:999px;border:0;background:linear-gradient(#fff8e8,#ffcc00);color:#000;font-weight:900;font-size:14px;margin-top:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(255,204,0,.4)}
+.linkbox{margin-top:14px;background:#0a0a0a;border:1px dashed rgba(255,204,0,.4);border-radius:14px;padding:12px;word-break:break-all;font-size:12px;color:#E8DCC6;display:none;box-shadow:inset 0 0 12px rgba(255,204,0,.08)}
+.small{font-size:10px;color:#888;margin-top:8px;line-height:1.4}
+.prize-list{margin-top:14px;background:#0a0a0a;border-radius:12px;padding:12px;border:1px solid #222}
+.prize-list div{font-size:11px;padding:5px 0;border-bottom:1px solid #1a1a1a;color:#ccc;display:flex;justify-content:space-between}
+.prize-list div b{color:#ffcc00}
+.galeria-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.g-item{position:relative;border-radius:14px;overflow:hidden;background:#151515;border:1px solid #222}
+.g-item img{width:100%;display:block;aspect-ratio:1;object-fit:cover}
+.g-item .g-meta{padding:6px 8px;font-size:8px;color:#888;display:flex;justify-content:space-between}
+.btn-pink{background:linear-gradient(135deg,#ff6ea8,#ffcc00);color:#000;height:42px;border-radius:10px;border:0;font-weight:900;font-size:11px;flex:1;cursor:pointer}
+.btn-gray{background:#222;color:#ccc;border:1px solid #333;height:42px;border-radius:10px;font-weight:800;font-size:11px;flex:1;cursor:pointer}
+.row{display:flex;gap:6px;margin-top:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:#ff3b3b;display:none}
+.dot.on{display:block;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.machine-icon{text-align:center;font-size:40px;margin:8px 0;filter:drop-shadow(0 0 12px #ffcc00);animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>ADMIN MAGALY 🍑<br>TRAGAMONEDAS NEÓN</h1>
+<p style="text-align:center;font-size:11px;color:#ffcc00;margin-top:6px;font-weight:700">https://magaly-gules.vercel.app/ • SLOT EDICIÓN</p>
+<div class="machine-icon">🎰</div>
+
+<div class="card">
+<label>Número de WhatsApp del cliente</label>
+<input id="phone" placeholder="Ej: 7228968645" value="7228968645">
+<label>Nombre del cliente (opcional)</label>
+<input id="name" placeholder="Ej: Cliente Juan">
+<button class="btn" onclick="generar()">🎰 Generar Link de Tragamonedas</button>
+<div id="linkbox" class="linkbox"></div>
+<button id="btnCopy" class="btn" style="display:none;background:#1e1e1e;border:1px solid #333;color:#fff;height:46px;margin-top:10px" onclick="copiar()">📋 Copiar Link</button>
+<button id="btnWa" class="btn" style="display:none;background:#25D366;color:#000;height:46px;margin-top:8px" onclick="enviarWa()">💬 Enviar por WhatsApp</button>
+<p class="small">Link de un solo uso. Bloquea al cliente hasta que le mandes token. Dominio: magaly-gules.vercel.app • Precio: $150 / 2x$200 • Juego: Tragamonedas 3 rodillos</p>
+</div>
+
+<div class="card" style="margin-top:20px;border-color:rgba(255,110,168,.3)">
+<h2 style="font-family:'Orbitron',sans-serif;font-size:13px;color:#ff6ea8;text-align:center">🔒 SECCIÓN PRIVADA - FOTOS Y AUDIOS</h2>
+<p style="font-size:8px;color:#777;text-align:center;margin-top:4px">Sube fotos y notas de voz que verán todos los clientes en la Tragamonedas y quedan guardadas aunque reinicien.</p>
+
+<label style="margin-top:12px">CLOUD ID (jsonblob.com) para que lo vean todos</label>
+<input id="cloudIdInput" placeholder="Pega ID de jsonblob o deja vacío para local">
+<div style="font-size:7px;color:#555;margin-top:4px">Crea en jsonblob.com/api/jsonBlob un blob con [] y pega el ID aquí. Así se sincroniza para todos los dispositivos.</div>
+
+<label style="margin-top:12px">📸 FOTOS</label>
+<input type="file" id="fotoInput" accept="image/*" multiple>
+<div class="row"><button class="btn-pink" onclick="subirFotos()">Subir Fotos</button><button class="btn-gray" onclick="document.getElementById('fotoInput').value=''">Limpiar</button></div>
+
+<label style="margin-top:12px">🎤 AUDIOS</label>
+<input type="file" id="audioInput" accept="audio/*">
+<div class="row"><button class="btn-pink" onclick="subirAudioFile()">Subir Audio</button></div>
+<div style="display:flex;gap:6px;align-items:center;margin-top:8px">
+<button id="recBtn" class="btn-gray" onclick="toggleRec()">🎙️ Grabar Voz</button><div id="recDot" class="dot"></div><span id="recTime" style="font-size:9px;color:#888">00:00</span>
+</div>
+
+<div class="row" style="margin-top:12px"><button class="btn-gray" onclick="exportarGaleria()">📤 Exportar</button><button class="btn-gray" onclick="borrarTodaGaleria()" style="color:#ff6b6b">🗑️ Borrar Todo</button></div>
+<div id="adminLista" style="margin-top:12px"></div>
+<div id="galeriaGrid" class="galeria-grid" style="margin-top:12px"></div>
+</div>
+
+<div class="card">
+<div class="prize-list">
+<div><b>7 GANADORES - TRAGAMONEDAS:</b><span style="font-size:9px;color:#666">TRIPLE</span></div>
+<div><span>💸 DESCUENTO -$100 (x2)</span><span style="color:#ffcc00;font-weight:900">7️⃣ 7️⃣ 7️⃣</span></div>
+<div><span>💵 DESCUENTO -$50</span><span style="color:#00ffb3">BAR BAR BAR</span></div>
+<div><span>⏰ 20 MIN EXTRA DESDE 1HR</span><span style="color:#ff6ea8">🔔 🔔 🔔</span></div>
+<div><span>📹 VIDEO LLAMADA 5 MIN (x2)</span><span style="color:#00e5ff">💎 💎 💎</span></div>
+<div><span>🏨 YO PONGO EL HOTEL</span><span style="color:#ff8a00">👑 👑 👑</span></div>
+<div style="margin-top:6px"><b>9 SIN PREMIO</b><span>🍒 MIX</span></div>
+<div style="margin-top:8px;font-size:8px;color:#555;border:0">Mismos premios que archivo original. Probabilidad 7/16. Mismas funciones de bloqueo por token.</div>
+</div>
+</div>
+
+</div>
+<script>
+const BASE="https://magaly-gules.vercel.app/";
+function generar(){
+ const phone=document.getElementById('phone').value.trim().replace(/[^0-9]/g,'');
+ const name=document.getElementById('name').value.trim()||'Cliente';
+ if(!phone){alert('Pon el número');return}
+ const rand=Math.random().toString(36).substring(2,7).toUpperCase();
+ const token=`MAGALY-${phone.slice(-4)}-${rand}-${Date.now().toString(36).toUpperCase()}`;
+ const link=`${BASE}?t=${token}&c=${phone}&j=1`;
+ const box=document.getElementById('linkbox');
+ box.style.display='block';
+ box.innerHTML=`<b style="color:#ffcc00">🎰 Link Tragamonedas para ${name}:</b><br><br>${link}<br><br><span style="font-size:10px;color:#777">Token: ${token}</span><br><span style="font-size:10px;color:#777">Precio: $150 x1 / $200 x2 - magaly-gules.vercel.app</span><br><span style="font-size:9px;color:#ff6ea8">Juego: Tragamonedas Neón - 3 rodillos</span>`;
+ box.dataset.link=link; box.dataset.phone=phone;
+ document.getElementById('btnCopy').style.display='flex';
+ document.getElementById('btnWa').style.display='flex';
+}
+function copiar(){navigator.clipboard.writeText(document.getElementById('linkbox').dataset.link).then(()=>alert('Copiado ✅'))}
+function enviarWa(){
+ const link=document.getElementById('linkbox').dataset.link;
+ const phone=document.getElementById('linkbox').dataset.phone;
+ const msg=`Hola 🍑 aquí tienes tu jugada de la Tragamonedas Magaly 🎰✨\n\n${link}\n\n¡Jala la palanca y gana Jackpot! 💋\n\n💰 $150 por 1 tirada o 2 tiradas por $200\n🎁 Premios: Descuento -$100, -$50, 20min extra, Video llamada 5min, Yo pongo el hotel\n🎰 7️⃣ 7️⃣ 7️⃣ = -$100 | BAR BAR BAR = -$50 | 🔔🔔🔔 = Extra | 💎💎💎 = Video | 👑👑👑 = Hotel\n\nhttps://magaly-gules.vercel.app/`;
+ window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// GALERIA - MISMA FUNCION ORIGINAL
+const GALERIA_KEY='magaly_galeria_v1';
+const CLOUD_ID_KEY='magaly_cloud_id';
+let galeria=[];
+try{galeria=JSON.parse(localStorage.getItem(GALERIA_KEY)||'[]');}catch(e){galeria=[];}
+function guardarLocal(){localStorage.setItem(GALERIA_KEY,JSON.stringify(galeria));}
+function renderGaleria(){
+ const cont=document.getElementById('galeriaGrid');const lista=document.getElementById('adminLista');
+ if(!galeria.length){cont.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:12px;color:#555;font-size:10px">Vacío - sube fotos</div>';}
+ else{
+  cont.innerHTML='';galeria.slice().reverse().forEach(item=>{
+   const div=document.createElement('div');div.className='g-item';
+   if(item.type==='image') div.innerHTML=`<img src="${item.data}"><div class="g-meta"><span>${item.date}</span><span>📸</span></div>`;
+   else div.innerHTML=`<div style="padding:10px"><div style="font-size:9px;color:#ffcc00">🎤 ${item.name}</div><audio controls src="${item.data}" style="width:100%;margin-top:4px"></audio><div class="g-meta"><span>${item.date}</span><span>🎤</span></div></div>`;
+   cont.appendChild(div);
+  });
+ }
+ if(lista){
+  lista.innerHTML='<div style="font-size:9px;color:#888;margin-top:8px">'+galeria.length+' archivos</div>';
+  galeria.slice().reverse().forEach((item,i)=>{
+   const idx=galeria.length-1-i;
+   const row=document.createElement('div');row.style.cssText='display:flex;gap:6px;align-items:center;margin-top:6px;background:#0a0a0a;padding:6px;border-radius:8px';
+   row.innerHTML=`<span style="font-size:8px;color:#666">${item.type} ${item.date}</span><span style="flex:1"></span><button onclick="borrarItem(${idx})" style="background:#222;color:#ff6b6b;border:1px solid #333;border-radius:6px;padding:4px 8px;font-size:8px">Borrar</button>`;
+   lista.appendChild(row);
+  });
+ }
+}
+async function compressImage(file){
+ return new Promise(res=>{
+  const reader=new FileReader();reader.onload=e=>{
+   const img=new Image();img.onload=()=>{
+    const canvas=document.createElement('canvas');const max=800;let w=img.width,h=img.height;
+    if(w>max||h>max){if(w>h){h=h*max/w;w=max;}else{w=w*max/h;h=max;}}
+    canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);
+    res(canvas.toDataURL('image/jpeg',0.7));
+   };img.src=e.target.result;
+  };reader.readAsDataURL(file);
+ });
+}
+function fileToBase64(file){return new Promise(r=>{const fr=new FileReader();fr.onload=e=>r(e.target.result);fr.readAsDataURL(file);});}
+async function subirFotos(){
+ const input=document.getElementById('fotoInput');if(!input.files.length){alert('Selecciona fotos');return;}
+ for(const file of input.files){const data=await compressImage(file);galeria.push({id:Date.now()+Math.random(),type:'image',data,name:file.name,date:new Date().toLocaleDateString()});}
+ guardarLocal();renderGaleria();await guardarNube();alert('Fotos subidas ✅');input.value='';
+}
+async function subirAudioFile(){
+ const input=document.getElementById('audioInput');if(!input.files.length){alert('Selecciona audio');return;}
+ const data=await fileToBase64(input.files[0]);galeria.push({id:Date.now(),type:'audio',data,name:input.files[0].name,date:new Date().toLocaleDateString()});guardarLocal();renderGaleria();await guardarNube();alert('Audio subido ✅');input.value='';
+}
+function borrarItem(idx){if(!confirm('¿Borrar?'))return;galeria.splice(idx,1);guardarLocal();renderGaleria();guardarNube();}
+function borrarTodaGaleria(){if(!confirm('¿Borrar TODO?'))return;galeria=[];guardarLocal();renderGaleria();guardarNube();}
+function exportarGaleria(){const blob=new Blob([JSON.stringify(galeria)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='galeria_magaly.json';a.click();}
+async function guardarNube(){
+ const cloudId=localStorage.getItem(CLOUD_ID_KEY)||document.getElementById('cloudIdInput').value.trim();if(!cloudId)return;
+ try{await fetch(`https://jsonblob.com/api/jsonBlob/${cloudId}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(galeria)});}catch(e){}
+}
+async function cargarNube(){
+ const input=document.getElementById('cloudIdInput');const saved=localStorage.getItem(CLOUD_ID_KEY);if(saved)input.value=saved;
+ const id=saved||input.value.trim();if(!id)return;
+ try{const res=await fetch(`https://jsonblob.com/api/jsonBlob/${id}`);if(res.ok){const data=await res.json();if(Array.isArray(data)&&data.length){galeria=data;guardarLocal();renderGaleria();}}}catch(e){}
+}
+document.getElementById('cloudIdInput').addEventListener('change',e=>{const v=e.target.value.trim();if(v){localStorage.setItem(CLOUD_ID_KEY,v);cargarNube();alert('Cloud ID guardado ✅');}});
+let mediaRecorder,chunks=[],sec=0,recTimer;
+function toggleRec(){
+ const btn=document.getElementById('recBtn');const dot=document.getElementById('recDot');const time=document.getElementById('recTime');
+ if(mediaRecorder&&mediaRecorder.state==='recording'){mediaRecorder.stop();dot.classList.remove('on');btn.textContent='🎙️ Grabar Voz';clearInterval(recTimer);}
+ else{
+  navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
+   mediaRecorder=new MediaRecorder(s);chunks=[];sec=0;
+   mediaRecorder.ondataavailable=e=>chunks.push(e.data);
+   mediaRecorder.onstop=async()=>{
+    const blob=new Blob(chunks,{type:'audio/webm'});const data=await new Promise(r=>{const fr=new FileReader();fr.onload=e=>r(e.target.result);fr.readAsDataURL(blob);});
+    galeria.push({id:Date.now(),type:'audio',data,name:`Voz ${new Date().toLocaleTimeString()}`,date:new Date().toLocaleDateString()});
+    guardarLocal();renderGaleria();await guardarNube();alert('Nota de voz guardada ✅');
+   };
+   mediaRecorder.start();dot.classList.add('on');btn.textContent='⏹️ Detener';recTimer=setInterval(()=>{sec++;time.textContent=`00:${String(sec).padStart(2,'0')}`;},1000);
+  }).catch(()=>alert('Micrófono no disponible'));
+ }
+}
+renderGaleria();cargarNube();
+</script>
+</body>
+</html>
